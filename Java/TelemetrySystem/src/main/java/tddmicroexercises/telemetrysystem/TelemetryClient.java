@@ -2,14 +2,18 @@ package tddmicroexercises.telemetrysystem;
 
 import java.util.Random;
 
-public class TelemetryClient
+public class TelemetryClient implements  TelemetrySender
 {
     public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
 
     private boolean onlineStatus;
     private String diagnosticMessageResult = "";
 
-    private final Random connectionEventsSimulator = new Random(42);
+    private TelemetryConnection connection;
+
+    public TelemetryClient(TelemetryConnection connection) {
+        this.connection = connection;
+    }
 
     public boolean getOnlineStatus()
     {
@@ -18,15 +22,7 @@ public class TelemetryClient
 
     public void connect(String telemetryServerConnectionString)
     {
-        if (telemetryServerConnectionString == null || "".equals(telemetryServerConnectionString))
-        {
-            throw new IllegalArgumentException();
-        }
-
-        // simulate the operation on a real modem
-        boolean success = connectionEventsSimulator.nextInt(10) <= 8;
-
-        onlineStatus = success;
+        onlineStatus = connection.establishConnection(telemetryServerConnectionString);
     }
 
     public void disconnect()
@@ -74,10 +70,10 @@ public class TelemetryClient
         {
             // simulate a received message (just for illustration - not needed for this exercise)
             message = "";
-            int messageLength = connectionEventsSimulator.nextInt(50) + 60;
+            int messageLength = connection.getConnectionEventsSimulator().nextInt(50) + 60;
             for(int i = messageLength; i >=0; --i)
             {
-                message += (char)connectionEventsSimulator.nextInt(40) + 86;
+                message += (char)connection.getConnectionEventsSimulator().nextInt(40) + 86;
             }
             
         } 
