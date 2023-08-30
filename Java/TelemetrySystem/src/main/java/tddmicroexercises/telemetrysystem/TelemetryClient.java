@@ -9,11 +9,11 @@ public class TelemetryClient
     private boolean onlineStatus;
     private final String diagnosticMessageResult = "";
 
-    private final TelemetryConnection connection;
+    private final Connection connection;
 
     private final TelemetryActions telemetryActions;
 
-    public TelemetryClient(TelemetryConnection connection, TelemetryActions telemetryActions) {
+    public TelemetryClient(Connection connection, TelemetryActions telemetryActions) {
         this.connection = connection;
         this.telemetryActions = telemetryActions;
     }

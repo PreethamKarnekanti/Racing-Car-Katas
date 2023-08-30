@@ -3,7 +3,11 @@ package tddmicroexercises.telemetrysystem;
 import java.util.Random;
 
 public class TelemetryConnection implements  Connection {
-    private final Random connectionEventsSimulator = new Random(42);
+    private final Random connectionEventsSimulator;
+
+    public TelemetryConnection() {
+        this.connectionEventsSimulator = new Random(42);
+    }
 
     public Random getConnectionEventsSimulator() {
         return connectionEventsSimulator;

@@ -3,14 +3,16 @@ package tddmicroexercises.telemetrysystem;
 import java.util.Random;
 
 public class TelemetryActionsImpl implements TelemetryActions {
-    public static final String DIAGNOSTIC_MESSAGE = "AT#UD";
+    public final String DIAGNOSTIC_MESSAGE;
 
-    private String diagnosticMessageResult = "";
+    private String diagnosticMessageResult;
 
     private final Random connectionEventsSimulator;
 
     public TelemetryActionsImpl() {
         this.connectionEventsSimulator = new Random(42);
+        this.diagnosticMessageResult = "";
+        this.DIAGNOSTIC_MESSAGE = "AT#UD";
     }
 
     @Override
@@ -20,7 +22,7 @@ public class TelemetryActionsImpl implements TelemetryActions {
             throw new IllegalArgumentException();
         }
 
-        if (message == DIAGNOSTIC_MESSAGE)
+        if (message.equals(DIAGNOSTIC_MESSAGE))
         {
             diagnosticMessageResult =
                     "LAST TX rate................ 100 MBPS\r\n"
